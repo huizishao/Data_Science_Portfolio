@@ -28,7 +28,7 @@ warnings.filterwarnings("ignore")
 
 
 def load_data(database_filepath):
-    engine = create_engine('sqlite:///data/DisasterResponse.db')
+    engine = create_engine('sqlite:///../data/DisasterResponse.db')
     df = pd.read_sql_table('DisasterResponse', con=engine)
     X = df.loc[:,'message']
     Y = df.drop(['id','message','original','genre'],axis=1)
@@ -80,16 +80,30 @@ def build_model():
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
+    """
+        Evaluate the model performances (f1-score, precision and recall)
+    Args: 
+        model: the model to be evaluated
+        X_test: X_test dataframe
+        Y_test: Y_test dataframe
+        category_names: category names list defined in load data
+    Returns: 
+        perfomances (DataFrame)
+    """   
+    
     y_predict = model.predict(X_test)
     
     # iterate columns to get reports
     for i in range(len(Y_test.columns)):
+        print(y_test.columns[i])
         print(classification_report(Y_test.iloc[:, i].values, y_predict[:, i]))
 
 
 def save_model(model, model_filepath):
+    """
+        Save model to pickle
+    """
     pickle.dump(model, open(model_filepath, 'wb'))
-    #joblib.dump(model, open(model_filepath, 'wb'))
 
 
 def main():
