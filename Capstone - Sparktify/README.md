@@ -26,7 +26,7 @@ With the features I engineered as in the project, Gradient Boosting Tree Model c
 
 For further discussion you could find more details and visuals at my medium blog post available [here](https://medium.com/@jessie.sssy/understanding-customer-churning-abd6525d61c5)
 
-For my gitub link, you can click [here](https://github.com/huizishao/Udacity_DataScientist_Nanodegree)
+For my GitHub repository, you can click [here](https://github.com/huizishao/Udacity_DataScientist_Nanodegree)
 
 ### Required Packages
 
