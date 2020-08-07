@@ -20,6 +20,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import classification_report
 
 import pickle
+#from sklearn.externals import joblib
 
 import warnings
 warnings.filterwarnings("ignore")
@@ -27,7 +28,7 @@ warnings.filterwarnings("ignore")
 
 
 def load_data(database_filepath):
-    engine = create_engine('sqlite:///DisasterResponse.db')
+    engine = create_engine('sqlite:///data/DisasterResponse.db')
     df = pd.read_sql_table('DisasterResponse', con=engine)
     X = df.loc[:,'message']
     Y = df.drop(['id','message','original','genre'],axis=1)
@@ -67,28 +68,28 @@ def build_model():
                         ('clf', MultiOutputClassifier(RandomForestClassifier(n_estimators=100, n_jobs = 6)))
                         ])
     
+    # can tuning the parameters, but take really long time
     #grid search
-    parameters = {'clf__estimator__max_features': ['sqrt',0.5],
-              'clf__estimator__criterion': ['gini','entropy']
-                 }
+    #parameters = {'clf__estimator__max_features': ['sqrt',0.5],
+    #          'clf__estimator__criterion': ['gini','entropy']
+    #             }
 
-    cv = GridSearchCV(pipeline, param_grid = parameters, cv = 5,n_jobs=6)
-    cv.fit(x_train, y_train)
+    #cv = GridSearchCV(pipeline, param_grid = parameters, cv = 5,n_jobs=6)
     
-    return cv
+    return pipeline
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
-    y_predict = pipeline.predict(x_test)
+    y_predict = model.predict(X_test)
     
     # iterate columns to get reports
-    for i in range(len(y_test.columns)):
-        print(classification_report(y_test.iloc[:, i].values, y_predict[:, i])))
+    for i in range(len(Y_test.columns)):
+        print(classification_report(Y_test.iloc[:, i].values, y_predict[:, i]))
 
 
 def save_model(model, model_filepath):
-    pickle.dump(model, open('model_filepath', 'wb'))
-
+    pickle.dump(model, open(model_filepath, 'wb'))
+    #joblib.dump(model, open(model_filepath, 'wb'))
 
 
 def main():

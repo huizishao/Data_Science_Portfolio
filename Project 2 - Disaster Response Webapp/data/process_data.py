@@ -27,20 +27,23 @@ def clean_data(df):
         # convert column from string to numeric
         categories[column] = categories[column].astype('int')
 
+    # drop 'related = 2', which doesn't make senese
+    categories = categories[categories.related != 2]
+
     # Replace categories column in df with new category columns
     df = df.drop('categories',axis=1)
-    df = df.join(categories)
+    df = df.join(categories,on='id',how='inner')
+
     # drop duplicates
     df = df.drop_duplicates()
     return df
     
 
 def save_data(df, database_filename):
-    engine = create_engine('sqlite:///DisasterResponse.db')
+    engine = create_engine('sqlite:///data/DisasterResponse.db')
     df.to_sql('DisasterResponse', engine, index=False)
     
-
-
+    
 def main():
     if len(sys.argv) == 4:
 

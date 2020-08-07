@@ -42,8 +42,7 @@ def tokenize(text):
     return clean_tokens
 
 # load data from database
-db = 'sqlite:///DisasterResponse.db'
-engine = create_engine('sqlite:///../DisasterResponse.db')
+engine = create_engine('sqlite:///../data/DisasterResponse.db')
 df = pd.read_sql_table('DisasterResponse', engine)
 #load model
 model = joblib.load("../randomforest.pkl")
@@ -56,6 +55,7 @@ def master():
     # distribution of genres of messages
     genre_counts = df.groupby('genre').count()['id']
     genre_names = list(genre_counts.index)
+    print('genre_names:',genre_names)
 
     # distritbution of category of disastor
     category_counts = df[df.columns[4:]].sum()
