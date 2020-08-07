@@ -19,7 +19,7 @@ The full dataset is 12GB. Here we only analyze the small subset of it. The data 
 
 ### Results
 
-With the features I engineered as in the project, Gradient Boosting Tree Model can give F1 score of 0.88. For further discussion you could find more details and visuals at my medium blog post available [here] (https://medium.com/@jessie.sssy/understanding-customer-churning-abd6525d61c5)
+With the features I engineered as in the project, Gradient Boosting Tree Model can give F1 score of 0.88. For further discussion you could find more details and visuals at my medium blog post available [here](https://medium.com/@jessie.sssy/understanding-customer-churning-abd6525d61c5)
 
 ### Required Packages
 
